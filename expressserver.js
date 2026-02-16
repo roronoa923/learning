@@ -1,13 +1,15 @@
 const express = require("express");
 const morgan = require("morgan");
 const fs = require("fs");
+const { mid1 } = require("./middleware");
+
 
 const app = express();
 PORT = 3000;
 const accessLogStream = fs.createWriteStream("log.txt", { flags: "a" });
 app.use(morgan("combined", { stream: accessLogStream }));
 
-app.get("/", (req, res) => {
+app.get("/",mid1, (req, res) => {
   res.writeHead(200).end("Welcome to home page");
 });
 app.get("/contact-us", (req, res) => {
